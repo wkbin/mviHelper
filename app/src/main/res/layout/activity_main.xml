@@ -1,32 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btn_show_toast"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="弹出一条Toast"
-        tools:layout_editor_absoluteX="108dp"
-        tools:layout_editor_absoluteY="0dp" />
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_container"
+        android:name="me.wkbin.movie.app.ui.fm.HomeFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
-    <Button
-        android:id="@+id/btn_swipe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="模拟下拉刷新" />
-    <Button
-        android:id="@+id/btn_get"
-        android:text="模拟请求网络"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <ImageView
-        android:id="@+id/iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+  <com.google.android.material.bottomnavigation.BottomNavigationView
+      android:id="@+id/nav_view"
+      app:menu="@menu/menu_navigation_tab"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"/>
 </LinearLayout>

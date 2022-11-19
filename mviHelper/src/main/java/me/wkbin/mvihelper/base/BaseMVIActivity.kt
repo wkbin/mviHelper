@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import com.gyf.immersionbar.ImmersionBar
 import com.gyf.immersionbar.ktx.immersionBar
 import me.wkbin.mvihelper.R
 import me.wkbin.mvihelper.core.UiEffect
@@ -86,15 +87,25 @@ abstract class BaseMVIActivity<STATE, EFFECT, EVENT, VM : BaseViewModel<STATE, E
      */
     protected open fun initImmersionBar() {
         //设置共同沉浸式样式
-        mTitleBarView?.let { titleBar ->
-            baseRootView.addView(titleBar, 0)
-            //是否隐藏标题栏
-            titleBar.isVisible = showToolBar()
+        if(mTitleBarView == null){
             immersionBar {
-                titleBar(titleBar)
+                statusBarDarkFont(isDarkFontForStatusBar())
+            }
+        }else{
+            baseRootView.addView(mTitleBarView, 0)
+            //是否隐藏标题栏
+            mTitleBarView!!.isVisible = showToolBar()
+            immersionBar {
+                statusBarDarkFont(isDarkFontForStatusBar())
+                titleBar(mTitleBarView)
             }
         }
     }
+
+    /**
+     * 状态栏默认黑色字体
+     */
+    open fun isDarkFontForStatusBar() = true
 
     /**
      * onCreate之前调用

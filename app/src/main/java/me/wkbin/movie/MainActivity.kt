@@ -2,6 +2,7 @@ package me.wkbin.movie
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.LiveData
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,26 +23,26 @@ class MainActivity :
 
 
     override fun initView(savedInstanceState: Bundle?) {
-        mViewBind.btnShowToast.setOnClickListener {
-            mViewModel.shoToast()
-        }
-
-        mViewBind.btnSwipe.setOnClickListener {
-            mViewModel.process(MainViewEvent.OnSwipeRefresh)
-        }
-
-        mViewBind.btnGet.setOnClickListener {
-            mViewModel.loadData()
-        }
+//        mViewBind.btnShowToast.setOnClickListener {
+//            mViewModel.shoToast()
+//        }
+//
+//        mViewBind.btnSwipe.setOnClickListener {
+//            mViewModel.process(MainViewEvent.OnSwipeRefresh)
+//        }
+//
+//        mViewBind.btnGet.setOnClickListener {
+//            mViewModel.loadData()
+//        }
     }
 
     override fun renderViewState(viewStates: LiveData<MainViewState>) {
         viewStates.run {
             observeState(this@MainActivity,MainViewState::bitmap){
-                mViewBind.iv.setImageBitmap(it)
+//                mViewBind.iv.setImageBitmap(it)
             }
-            observeState(this@MainActivity,MainViewState::list){
-
+            observeState(this@MainActivity,MainViewState::recommendData){
+                Log.d("renderViewState",it.toString())
             }
         }
     }

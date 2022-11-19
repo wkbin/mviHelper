@@ -1,10 +1,11 @@
 package me.wkbin.movie.app.ui.mvi
 
 import android.graphics.Bitmap
+import me.wkbin.movie.app.data.HomeData
 
 
 data class MainViewState(
-    val list:Any? = null,
+    val recommendData: List<HomeData>? = null,
     val bitmap:Bitmap? = null
 )
 

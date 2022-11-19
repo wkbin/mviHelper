@@ -3,6 +3,7 @@ package me.wkbin.movie.app
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 import me.wkbin.movie.BuildConfig
+import me.wkbin.movie.app.api.HttpLoggingInterceptor
 import okhttp3.OkHttpClient
 import rxhttp.RxHttpPlugins
 import rxhttp.wrapper.converter.MoshiConverter
@@ -22,11 +23,11 @@ class App: Application() {
     private fun init() {
         val sslParams = HttpsUtils.getSslSocketFactory()
         val client: OkHttpClient = OkHttpClient.Builder()
+            .addInterceptor(HttpLoggingInterceptor())
             .sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager) //添加信任证书
             .hostnameVerifier { _: String?, _: SSLSession? -> true } //忽略host验证
             .build()
         RxHttpPlugins.init(client) //自定义OkHttpClient对象
-            .setConverter(MoshiConverter.create())
             .setDebug(BuildConfig.DEBUG, false, 2) //调试模式/分段打印/json数据格式化输出
             .setOnParamAssembly { _: Param<*>? -> }
     }

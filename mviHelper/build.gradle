@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
-    id 'com.google.devtools.ksp' version '1.7.20-1.0.7'
 }
 
 android {
@@ -49,9 +48,7 @@ dependencies {
     api 'com.squareup.okhttp3:okhttp:4.10.0'
 
     def rxHttpVersion = "3.0.0"
-
-    api "com.github.liujingxing.rxhttp:rxhttp:$rxHttpVersion"
-    ksp "com.github.liujingxing.rxhttp:rxhttp-compiler:$rxHttpVersion"
+    compileOnly "com.github.liujingxing.rxhttp:rxhttp:$rxHttpVersion"
 
 
     // 基础依赖包，必须要依赖

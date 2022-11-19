@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
+    id 'com.google.devtools.ksp' version '1.7.20-1.0.7'
 }
 
 android {
@@ -39,7 +40,7 @@ android {
         sourceSets {
             def name = variant.name
             getByName(name) {  //告知IDE，ksp生成的kotlin代码
-                kotlin.srcDir("../mviHelper/build/generated/ksp/$name/kotlin")
+                kotlin.srcDir("build/generated/ksp/$name/kotlin")
             }
         }
     }
@@ -66,8 +67,13 @@ dependencies {
     implementation "androidx.activity:activity-ktx:1.6.1"
     implementation "com.github.liujingxing.rxhttp:converter-moshi:3.0.0"
     implementation "com.squareup.moshi:moshi-kotlin:1.14.0"
+    ksp "com.squareup.moshi:moshi-kotlin-codegen:1.14.0"
     implementation 'com.tencent:mmkv:1.2.14'
+    implementation 'com.jakewharton.timber:timber:5.0.1'
 
+    def rxHttpVersion = "3.0.0"
+    implementation "com.github.liujingxing.rxhttp:rxhttp:$rxHttpVersion"
+    ksp "com.github.liujingxing.rxhttp:rxhttp-compiler:$rxHttpVersion"
 }
 
 // Allow references to generated code
