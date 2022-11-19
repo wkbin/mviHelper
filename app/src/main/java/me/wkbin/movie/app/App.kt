@@ -28,6 +28,6 @@ class App: Application() {
         RxHttpPlugins.init(client) //自定义OkHttpClient对象
             .setConverter(MoshiConverter.create())
             .setDebug(BuildConfig.DEBUG, false, 2) //调试模式/分段打印/json数据格式化输出
-            .setOnParamAssembly { p: Param<*>? -> }
+            .setOnParamAssembly { _: Param<*>? -> }
     }
 }

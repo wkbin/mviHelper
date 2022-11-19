@@ -11,8 +11,9 @@ import me.wkbin.mvihelper.core.livedata.SingleLiveEvent
 import me.wkbin.mvihelper.exception.NoObserverAttachedException
 import me.wkbin.mvihelper.ext.TAG
 
-open class BaseViewModel<STATE , EFFECT , EVENT> : ViewModel(),
-    ViewModelContract<EVENT> {
+open class BaseViewModel<STATE , EFFECT, EVENT> :
+     ViewModel(), ViewModelContract<EVENT> {
+
 
     private val _viewStates: MutableLiveData<STATE> = MutableLiveData()
     fun viewStates(): LiveData<STATE> = _viewStates
@@ -50,13 +51,14 @@ open class BaseViewModel<STATE , EFFECT , EVENT> : ViewModel(),
         Log.d(TAG, "processing viewEvent: $viewEvent")
     }
 
-    private val _uiEffects:SingleLiveEvent<UiEffect> = SingleLiveEvent()
-    fun uiEffects():SingleLiveEvent<UiEffect> = _uiEffects
+    private val _uiEffects: SingleLiveEvent<UiEffect> = SingleLiveEvent()
+    fun uiEffects(): SingleLiveEvent<UiEffect> = _uiEffects
 
-    private var _uiEffect:UiEffect? = null
-    var uiEffect:UiEffect
-        get() = _uiEffect?:throw UninitializedPropertyAccessException("\"uiEffect\" was queried before being initialized")
-        set(value){
+    private var _uiEffect: UiEffect? = null
+    var uiEffect: UiEffect
+        get() = _uiEffect
+            ?: throw UninitializedPropertyAccessException("\"uiEffect\" was queried before being initialized")
+        set(value) {
             Log.d(TAG, "setting uiEffect : $value")
             _uiEffect = value
             _uiEffects.value = value

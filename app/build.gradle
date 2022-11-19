@@ -64,8 +64,10 @@ dependencies {
     //万能adapter
     implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.8"
     implementation "androidx.activity:activity-ktx:1.6.1"
-
     implementation "com.github.liujingxing.rxhttp:converter-moshi:3.0.0"
+    implementation "com.squareup.moshi:moshi-kotlin:1.14.0"
+    implementation 'com.tencent:mmkv:1.2.14'
+
 }
 
 // Allow references to generated code

@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.gyf.immersionbar.ktx.immersionBar
 import me.wkbin.mvihelper.R
@@ -48,14 +49,11 @@ abstract class BaseMVIActivity<STATE, EFFECT, EVENT, VM : BaseViewModel<STATE, E
     }
 
     private fun registerUiChange() {
-        mViewModel.viewStates().observe(this, viewStateObserver)
+        renderViewState(mViewModel.viewStates())
         mViewModel.viewEffects().observe(this, viewEffectObserver)
         mViewModel.uiEffects().observe(this, uiEffectObserver)
     }
 
-    private val viewStateObserver = Observer<STATE> {
-        renderViewState(it)
-    }
 
     private val viewEffectObserver = Observer<EFFECT> {
         renderViewEffect(it)
@@ -64,9 +62,6 @@ abstract class BaseMVIActivity<STATE, EFFECT, EVENT, VM : BaseViewModel<STATE, E
     private val uiEffectObserver = Observer<UiEffect> { uiEffect ->
         when (uiEffect) {
             is UiEffect.ShowToast -> toast(uiEffect.message)
-            is UiEffect.ShowSnackBar -> {
-
-            }
             is UiEffect.ShowLoadDialog -> showLoadingExt(uiEffect.message)
             is UiEffect.DismissLoadDialog -> dismissLoadingExt()
         }
@@ -127,8 +122,8 @@ abstract class BaseMVIActivity<STATE, EFFECT, EVENT, VM : BaseViewModel<STATE, E
     abstract fun initView(savedInstanceState: Bundle?)
 
 
-    abstract fun renderViewState(viewState: STATE)
+    abstract fun renderViewState(viewStates: LiveData<STATE>)
 
 
-    abstract fun renderViewEffect(viewEffect: EFFECT)
+    open fun renderViewEffect(viewEffect: EFFECT){}
 }

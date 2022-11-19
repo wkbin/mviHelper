@@ -2,21 +2,21 @@ package me.wkbin.movie
 
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.lifecycle.LiveData
 import dagger.hilt.android.AndroidEntryPoint
-import me.wkbin.movie.app.ui.mvi.FetchStatus
-import me.wkbin.movie.app.ui.mvi.MainViewEffect
+import me.wkbin.movie.app.ui.mvi.DefaultEffect
 import me.wkbin.movie.app.ui.mvi.MainViewEvent
 import me.wkbin.movie.app.ui.mvi.MainViewState
 import me.wkbin.movie.app.ui.vm.MainVM
 import me.wkbin.movie.databinding.ActivityMainBinding
 import me.wkbin.mvihelper.base.BaseVBActivity
-import javax.inject.Inject
+import me.wkbin.mvihelper.ext.observeState
 
 @AndroidEntryPoint
 class MainActivity :
-    BaseVBActivity<MainViewState, MainViewEffect, MainViewEvent, MainVM, ActivityMainBinding>() {
+    BaseVBActivity<MainViewState, DefaultEffect, MainViewEvent, MainVM, ActivityMainBinding>(){
+
 
     override val mViewModel: MainVM by viewModels()
 
@@ -35,21 +35,12 @@ class MainActivity :
         }
     }
 
-    override fun renderViewEffect(viewEffect: MainViewEffect) {
-
-    }
-
-    override fun renderViewState(viewState: MainViewState) {
-        when (viewState.fetchStatus) {
-            is FetchStatus.Fetched -> {
-                mViewBind.iv.setImageBitmap(viewState.bitmap)
+    override fun renderViewState(viewStates: LiveData<MainViewState>) {
+        viewStates.run {
+            observeState(this@MainActivity,MainViewState::bitmap){
+                mViewBind.iv.setImageBitmap(it)
             }
-
-            is FetchStatus.NotFetched -> {
-
-            }
-
-            is FetchStatus.Fetching -> {
+            observeState(this@MainActivity,MainViewState::list){
 
             }
         }
