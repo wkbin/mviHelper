@@ -72,8 +72,8 @@ abstract class BaseMVIActivity<STATE, EFFECT, EVENT, VM : BaseViewModel<STATE, E
      * 初始化标题栏
      */
     private fun initStatusView(savedInstanceState: Bundle?) {
-        mTitleBarView = createTitleBarView()
         viewBinding = initViewBind()
+        mTitleBarView = createTitleBarView()
         initImmersionBar()
         (viewBinding ?: LayoutInflater.from(this).inflate(layoutId, null))?.let {
             baseContentView.addView(it)

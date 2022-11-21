@@ -4,19 +4,19 @@ import android.graphics.Bitmap
 import me.wkbin.movie.app.data.HomeData
 
 
-data class MainViewState(
+data class HomeViewState(
     val recommendData: List<HomeData>? = null,
     val bitmap:Bitmap? = null
 )
 
-sealed class MainViewEvent {
+sealed class HomeViewEvent {
     /**
      * 下拉刷新
      */
-    object OnSwipeRefresh : MainViewEvent()
+    object OnSwipeRefresh : HomeViewEvent()
 
     /**
      * 上拉加载
      */
-    object OnLoadMore : MainViewEvent()
+    object OnLoadMore : HomeViewEvent()
 }

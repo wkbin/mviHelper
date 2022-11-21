@@ -1,33 +1,27 @@
 package me.wkbin.movie.app.ui.fm
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import me.wkbin.movie.R
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
+import me.wkbin.movie.app.ui.mvi.*
+import me.wkbin.movie.app.ui.vm.HomeVM
+import me.wkbin.movie.databinding.FragmentHomeBinding
+import me.wkbin.mvihelper.base.BaseVBFragment
 
 
-class HomeFragment : Fragment() {
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
-    }
+class HomeFragment : BaseVBFragment<HomeViewState,DefaultEffect,HomeViewEvent,HomeVM,FragmentHomeBinding>() {
 
     companion object {
-        fun newInstance() =
-            HomeFragment().apply {
+        fun newInstance() = HomeFragment()
+    }
 
-            }
+    override val mViewModel: HomeVM by viewModels()
+
+    override fun initView(savedInstanceState: Bundle?) {
+
+    }
+
+    override fun renderViewState(viewStates: LiveData<HomeViewState>) {
+
     }
 }

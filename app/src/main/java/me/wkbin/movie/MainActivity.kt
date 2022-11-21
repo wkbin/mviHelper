@@ -2,34 +2,27 @@ package me.wkbin.movie
 
 
 import android.os.Bundle
-import android.util.Log
-import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.lifecycle.LiveData
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
-import com.google.android.material.navigation.NavigationBarView
 import dagger.hilt.android.AndroidEntryPoint
 import me.wkbin.movie.app.ui.adapter.MainAdapter
 import me.wkbin.movie.app.ui.mvi.DefaultEffect
-import me.wkbin.movie.app.ui.mvi.MainViewEvent
-import me.wkbin.movie.app.ui.mvi.MainViewState
-import me.wkbin.movie.app.ui.vm.MainVM
+import me.wkbin.movie.app.ui.mvi.HomeViewEvent
+import me.wkbin.movie.app.ui.mvi.HomeViewState
+import me.wkbin.movie.app.ui.vm.HomeVM
 import me.wkbin.movie.databinding.ActivityMainBinding
 import me.wkbin.mvihelper.base.BaseVBActivity
-import me.wkbin.mvihelper.ext.observeState
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity :
-    BaseVBActivity<MainViewState, DefaultEffect, MainViewEvent, MainVM, ActivityMainBinding>(){
+    BaseVBActivity<HomeViewState, DefaultEffect, HomeViewEvent, HomeVM, ActivityMainBinding>(){
 
     @Inject
     lateinit var vpAdapter:MainAdapter
 
-    override val mViewModel: MainVM by viewModels()
-
-
-
+    override val mViewModel: HomeVM by viewModels()
 
     override fun initView(savedInstanceState: Bundle?) {
         mViewBind.vpMain.adapter = vpAdapter
@@ -59,7 +52,7 @@ class MainActivity :
     }
 
 
-    override fun renderViewState(viewStates: LiveData<MainViewState>) {}
+    override fun renderViewState(viewStates: LiveData<HomeViewState>) {}
 
 
 }

@@ -2,32 +2,29 @@ package me.wkbin.movie.app.ui.vm
 
 
 import android.graphics.Bitmap
-import androidx.constraintlayout.motion.utils.ViewState
-import dagger.hilt.android.lifecycle.HiltViewModel
 import me.wkbin.movie.app.api.Net
 import me.wkbin.movie.app.ui.mvi.DefaultEffect
-import me.wkbin.movie.app.ui.mvi.MainViewEvent
-import me.wkbin.movie.app.ui.mvi.MainViewState
+import me.wkbin.movie.app.ui.mvi.HomeViewEvent
+import me.wkbin.movie.app.ui.mvi.HomeViewState
 import me.wkbin.mvihelper.base.BaseViewModel
 import me.wkbin.mvihelper.core.UiEffect
 import me.wkbin.mvihelper.ext.rxRequest
 import rxhttp.toAwait
 import rxhttp.wrapper.param.RxHttp
-import javax.inject.Inject
 
 
-class MainVM : BaseViewModel<MainViewState, DefaultEffect, MainViewEvent>() {
+class HomeVM : BaseViewModel<HomeViewState, DefaultEffect, HomeViewEvent>() {
 
     init {
-        viewState = MainViewState()
+        viewState = HomeViewState()
     }
 
 
-    override fun process(viewEvent: MainViewEvent) {
+    override fun process(viewEvent: HomeViewEvent) {
         super.process(viewEvent)
         when (viewEvent) {
-            is MainViewEvent.OnSwipeRefresh -> getRecommendData(true)
-            is MainViewEvent.OnLoadMore -> getRecommendData(false)
+            is HomeViewEvent.OnSwipeRefresh -> getRecommendData(true)
+            is HomeViewEvent.OnLoadMore -> getRecommendData(false)
         }
     }
 
