@@ -67,4 +67,7 @@ dependencies {
     api "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     // Saved state module for ViewModel
     api "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
+
+    api 'com.orhanobut:logger:2.2.0'
+    api 'com.jakewharton.timber:timber:4.7.1'
 }

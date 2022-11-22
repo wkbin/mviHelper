@@ -4,6 +4,7 @@ import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 import me.wkbin.movie.BuildConfig
 import me.wkbin.movie.app.api.HttpLoggingInterceptor
+import me.wkbin.mvihelper.module.MVIModule
 import okhttp3.OkHttpClient
 import rxhttp.RxHttpPlugins
 import rxhttp.wrapper.converter.MoshiConverter
@@ -16,6 +17,7 @@ import javax.net.ssl.SSLSession
 class App: Application() {
     override fun onCreate() {
         super.onCreate()
+        MVIModule.init(this,true)
         init()
     }
 
