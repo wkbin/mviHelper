@@ -95,7 +95,6 @@ class HomeFragment :
      * recycleView初始化扩展
      */
     private fun RecyclerView.init(adapter:RecyclerView.Adapter<*>){
-        isNestedScrollingEnabled = false
         this.adapter = adapter
         horizontal()
         divider {
