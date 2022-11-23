@@ -55,11 +55,11 @@ dependencies {
     api 'com.geyifeng.immersionbar:immersionbar:3.2.2'
     // kotlin扩展（可选）
     api 'com.geyifeng.immersionbar:immersionbar-ktx:3.2.2'
-
+    //万能adapter
+    api "io.github.cymchad:BaseRecyclerViewAdapterHelper:4.0.0-beta04"
     implementation 'com.github.DylanCaiCoding.ViewBindingKTX:viewbinding-ktx:2.1.0'
     implementation 'com.github.DylanCaiCoding.ViewBindingKTX:viewbinding-nonreflection-ktx:2.1.0'
     implementation 'com.github.DylanCaiCoding.ViewBindingKTX:viewbinding-base:2.1.0'
-    implementation 'com.github.DylanCaiCoding.ViewBindingKTX:viewbinding-brvah:2.1.0'
     def lifecycle_version = "2.5.1"
     // ViewModel
     api "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
@@ -69,5 +69,5 @@ dependencies {
     api "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
 
     api 'com.orhanobut:logger:2.2.0'
-    api 'com.jakewharton.timber:timber:4.7.1'
+    api 'com.jakewharton.timber:timber:5.0.1'
 }

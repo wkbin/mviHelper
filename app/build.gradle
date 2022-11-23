@@ -33,9 +33,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-}
 
-android {
     applicationVariants.all { variant ->
         sourceSets {
             def name = variant.name
@@ -63,7 +61,7 @@ dependencies {
     kapt "com.google.dagger:hilt-compiler:2.44"
 
     //万能adapter
-    implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.8"
+    implementation "io.github.cymchad:BaseRecyclerViewAdapterHelper:3.0.11"
     implementation "androidx.activity:activity-ktx:1.6.1"
     implementation "androidx.fragment:fragment-ktx:1.5.4"
 
@@ -71,13 +69,16 @@ dependencies {
     implementation "com.squareup.moshi:moshi-kotlin:1.14.0"
     ksp "com.squareup.moshi:moshi-kotlin-codegen:1.14.0"
     implementation 'com.tencent:mmkv:1.2.14'
-    implementation 'com.jakewharton.timber:timber:5.0.1'
 
     def rxHttpVersion = "3.0.0"
     implementation "com.github.liujingxing.rxhttp:rxhttp:$rxHttpVersion"
     ksp "com.github.liujingxing.rxhttp:rxhttp-compiler:$rxHttpVersion"
 
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
+
+    implementation 'com.github.zhpanvip:bannerviewpager:3.5.7'
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
+    kapt 'com.github.bumptech.glide:compiler:4.14.2'
 }
 
 // Allow references to generated code

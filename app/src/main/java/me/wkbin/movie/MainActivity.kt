@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import dagger.hilt.android.AndroidEntryPoint
 import me.wkbin.movie.app.ui.adapter.MainAdapter
-import me.wkbin.movie.app.ui.mvi.DefaultEffect
+import me.wkbin.mvihelper.core.DefaultEffect
 import me.wkbin.movie.app.ui.mvi.HomeViewEvent
 import me.wkbin.movie.app.ui.mvi.HomeViewState
 import me.wkbin.movie.app.ui.vm.HomeVM
@@ -25,7 +25,10 @@ class MainActivity :
     override val mViewModel: HomeVM by viewModels()
 
     override fun initView(savedInstanceState: Bundle?) {
-        mViewBind.vpMain.adapter = vpAdapter
+        mViewBind.vpMain.apply {
+            adapter = vpAdapter
+            isUserInputEnabled = false
+        }
         mViewBind.navView.setOnItemSelectedListener { menu ->
             when (menu.itemId) {
                 R.id.nav_movie -> {

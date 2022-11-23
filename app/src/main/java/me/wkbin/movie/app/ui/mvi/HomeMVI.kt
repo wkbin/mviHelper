@@ -1,13 +1,27 @@
 package me.wkbin.movie.app.ui.mvi
 
-import android.graphics.Bitmap
 import me.wkbin.movie.app.data.HomeData
 
 
 data class HomeViewState(
+    val loadStatus: LoadStatus = LoadStatus.FirstLoad(true),
+    val homeMovesData:List<HomeData>? = null,
+    val homeTvData:List<HomeData>? = null,
+    val homeCartoonData:List<HomeData>? = null,
     val recommendData: List<HomeData>? = null,
-    val bitmap:Bitmap? = null
 )
+
+sealed class LoadStatus {
+    /**
+     * 第一次加载
+     */
+    data class FirstLoad(val hasMore:Boolean) : LoadStatus()
+
+    /**
+     * 加载更多
+     */
+    data class LoadMore(val hasMore:Boolean) : LoadStatus()
+}
 
 sealed class HomeViewEvent {
     /**
@@ -18,5 +32,29 @@ sealed class HomeViewEvent {
     /**
      * 上拉加载
      */
-    object OnLoadMore : HomeViewEvent()
+    data class OnLoadMore(
+        val eventType: HomeViewEventType
+    ) : HomeViewEvent()
+}
+
+sealed class HomeViewEventType {
+    /**
+     * 推荐
+     */
+    object Recommend : HomeViewEventType()
+
+    /**
+     * 电影
+     */
+    object Movie : HomeViewEventType()
+
+    /**
+     * 电视剧
+     */
+    object TVDrama : HomeViewEventType()
+
+    /**
+     * 动漫
+     */
+    object Cartoon : HomeViewEventType()
 }

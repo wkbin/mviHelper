@@ -23,7 +23,7 @@ open class ResponseParser<T> : TypeParser<T> {
         if(data.code != Net.REQUEST_SUC){
             throw ParseException(data.code.toString(),data.msg,response)
         }
-        if(t == null && (types.first() == String::class.java || types.first() == Any::class.java)){
+        if(t == null && (types.firstOrNull() == String::class.java || types.firstOrNull() == Any::class.java)){
             t = "" as T
         }
         return t!!

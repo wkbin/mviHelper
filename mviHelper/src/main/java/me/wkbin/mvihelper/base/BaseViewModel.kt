@@ -1,6 +1,6 @@
 package me.wkbin.mvihelper.base
 
-import android.util.Log
+
 import androidx.annotation.CallSuper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,23 +10,14 @@ import me.wkbin.mvihelper.core.ViewModelContract
 import me.wkbin.mvihelper.core.livedata.SingleLiveEvent
 import me.wkbin.mvihelper.exception.NoObserverAttachedException
 import me.wkbin.mvihelper.ext.TAG
+import me.wkbin.mvihelper.ext.setState
+import timber.log.Timber
 
-open class BaseViewModel<STATE , EFFECT, EVENT> :
+abstract class BaseViewModel<STATE , EFFECT, EVENT> :
      ViewModel(), ViewModelContract<EVENT> {
 
-
-    private val _viewStates: MutableLiveData<STATE> = MutableLiveData()
+    protected abstract val _viewStates: MutableLiveData<STATE>
     fun viewStates(): LiveData<STATE> = _viewStates
-
-    private var _viewState: STATE? = null
-    protected var viewState: STATE
-        get() = _viewState
-            ?: throw UninitializedPropertyAccessException("\"viewState\" was queried before being initialized")
-        set(value) {
-            Log.d(TAG, "setting viewState : $value")
-            _viewState = value
-            _viewStates.value = value!!
-        }
 
 
     private val _viewEffects: SingleLiveEvent<EFFECT> = SingleLiveEvent()
@@ -37,7 +28,7 @@ open class BaseViewModel<STATE , EFFECT, EVENT> :
         get() = _viewEffect
             ?: throw UninitializedPropertyAccessException("\"viewEffect\" was queried before being initialized")
         set(value) {
-            Log.d(TAG, "setting viewEffect : $value")
+            Timber.d(TAG, "setting viewEffect : $value")
             _viewEffect = value
             _viewEffects.value = value!!
         }
@@ -48,7 +39,7 @@ open class BaseViewModel<STATE , EFFECT, EVENT> :
         if (!viewStates().hasObservers()) {
             throw NoObserverAttachedException("No observer attached. In case of AacMviCustomView \"startObserving()\" function needs to be called manually.")
         }
-        Log.d(TAG, "processing viewEvent: $viewEvent")
+        Timber.d(TAG, "processing viewEvent: $viewEvent")
     }
 
     private val _uiEffects: SingleLiveEvent<UiEffect> = SingleLiveEvent()
@@ -59,14 +50,14 @@ open class BaseViewModel<STATE , EFFECT, EVENT> :
         get() = _uiEffect
             ?: throw UninitializedPropertyAccessException("\"uiEffect\" was queried before being initialized")
         set(value) {
-            Log.d(TAG, "setting uiEffect : $value")
+            Timber.d(TAG, "setting uiEffect : $value")
             _uiEffect = value
             _uiEffects.value = value
         }
 
     override fun onCleared() {
         super.onCleared()
-        Log.d(TAG, "onCleared")
+        Timber.d(TAG, "onCleared")
     }
 
 }

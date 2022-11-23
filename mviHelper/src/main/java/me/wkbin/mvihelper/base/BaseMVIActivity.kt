@@ -89,6 +89,8 @@ abstract class BaseMVIActivity<STATE, EFFECT, EVENT, VM : BaseViewModel<STATE, E
         //设置共同沉浸式样式
         if(mTitleBarView == null){
             immersionBar {
+                // 解决状态栏和布局重叠问题
+                fitsSystemWindows(true)
                 statusBarDarkFont(isDarkFontForStatusBar())
             }
         }else{

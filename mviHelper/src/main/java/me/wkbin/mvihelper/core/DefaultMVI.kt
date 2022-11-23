@@ -1,4 +1,4 @@
-package me.wkbin.movie.app.ui.mvi
+package me.wkbin.mvihelper.core
 
 
 /**

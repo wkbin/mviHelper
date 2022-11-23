@@ -1,9 +1,12 @@
 package me.wkbin.movie.app.ui.vm
 
-import me.wkbin.movie.app.ui.mvi.DefaultEffect
-import me.wkbin.movie.app.ui.mvi.DefaultState
-import me.wkbin.movie.app.ui.mvi.DefaultViewEvent
+import androidx.lifecycle.MutableLiveData
+import me.wkbin.mvihelper.core.DefaultEffect
+import me.wkbin.mvihelper.core.DefaultState
+import me.wkbin.mvihelper.core.DefaultViewEvent
 import me.wkbin.mvihelper.base.BaseViewModel
 
 class MyVM: BaseViewModel<DefaultEffect, DefaultViewEvent, DefaultState>() {
+    override val _viewStates: MutableLiveData<DefaultEffect>
+        get() = MutableLiveData()
 }

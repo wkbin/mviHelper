@@ -1,75 +1,146 @@
 package me.wkbin.movie.app.ui.vm
 
 
-import android.graphics.Bitmap
+import androidx.lifecycle.MutableLiveData
 import me.wkbin.movie.app.api.Net
-import me.wkbin.movie.app.ui.mvi.DefaultEffect
+import me.wkbin.mvihelper.core.DefaultEffect
 import me.wkbin.movie.app.ui.mvi.HomeViewEvent
+import me.wkbin.movie.app.ui.mvi.HomeViewEventType
 import me.wkbin.movie.app.ui.mvi.HomeViewState
+import me.wkbin.movie.app.ui.mvi.LoadStatus
 import me.wkbin.mvihelper.base.BaseViewModel
-import me.wkbin.mvihelper.core.UiEffect
 import me.wkbin.mvihelper.ext.rxRequest
-import rxhttp.toAwait
-import rxhttp.wrapper.param.RxHttp
+import me.wkbin.mvihelper.ext.setState
 
 
 class HomeVM : BaseViewModel<HomeViewState, DefaultEffect, HomeViewEvent>() {
 
-    init {
-        viewState = HomeViewState()
-    }
-
+    private val _mockBanner = listOf(
+        "http://pic.netbian.com/uploads/allimg/221121/234549-1669045549622d.jpg",
+        "http://pic.netbian.com/uploads/allimg/221115/153253-1668497573e1d2.jpg",
+    )
+    val mockBanner get() = _mockBanner
 
     override fun process(viewEvent: HomeViewEvent) {
         super.process(viewEvent)
         when (viewEvent) {
-            is HomeViewEvent.OnSwipeRefresh -> getRecommendData(true)
-            is HomeViewEvent.OnLoadMore -> getRecommendData(false)
+            is HomeViewEvent.OnSwipeRefresh -> {
+                getRecommendData(true)
+                getHomeMoves(true)
+                getHomeTv(true)
+                getHomeCartoon(true)
+            }
+            is HomeViewEvent.OnLoadMore -> when (viewEvent.eventType) {
+                HomeViewEventType.Recommend -> getRecommendData(false)
+                HomeViewEventType.Cartoon ->  getHomeCartoon(false)
+                HomeViewEventType.Movie -> getHomeMoves(false)
+                HomeViewEventType.TVDrama -> getHomeTv(false)
+            }
         }
     }
 
-    private var pageIndex = 1
+    private var recommendPageIndex = 1
+    private var homeMovesPageIndex = 1
+    private var homeTvPageIndex = 1
+    private var homeCartoonIndex = 1
 
+    /**
+     * 获取首页推荐数据
+     */
     private fun getRecommendData(isRefresh: Boolean = false) {
         if (isRefresh) {
-            pageIndex = 1
-        } else {
-            pageIndex++
+            recommendPageIndex = 1
         }
         rxRequest {
             onRequest = {
-                val recommendList = Net.getHomeMovesData(pageIndex).await()
-                viewState = viewState.copy(recommendData = recommendList)
+                val recommendList = Net.getRecommendData(recommendPageIndex).await()
+                val hasMore = recommendPageIndex >= recommendList.pageNum
+                val status  = if (isRefresh) LoadStatus.FirstLoad(hasMore) else LoadStatus.LoadMore(hasMore)
+                _viewStates.setState {
+                    copy(
+                        loadStatus = status,
+                        recommendData = recommendList.list
+                    )
+                }
+                recommendPageIndex++
             }
-            loadingMessage = "请求推荐数据..."
-            showloading = true
         }
     }
 
-    private fun onSwipeRefresh() {
-        uiEffect = UiEffect.ShowToast("刷新成功")
-    }
-
-    private fun onLoadMore() {
-        uiEffect = UiEffect.ShowToast("加载成功")
-    }
-
-
-    fun loadData() {
+    /**
+     * 获取首页电影数据
+     */
+    private fun getHomeMoves(isRefresh: Boolean = false){
+        if (isRefresh) {
+            homeMovesPageIndex = 1
+        }
         rxRequest {
             onRequest = {
-                val bm =
-                    RxHttp.get("https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA14d9AM.img?w=1920&h=1080&q=60&m=2&f=jpg")
-                        .toAwait<Bitmap>().await()
-                viewState = viewState.copy(bitmap = bm)
+                val homeMovesList = Net.getHomeMovesData(homeMovesPageIndex).await()
+                val hasMore = homeMovesPageIndex >= homeMovesList.pageNum
+                _viewStates.setState {
+                    copy(
+                        loadStatus = if (isRefresh)
+                            LoadStatus.FirstLoad(hasMore)
+                        else
+                            LoadStatus.LoadMore(hasMore),
+                        homeMovesData = homeMovesList.list
+                    )
+                }
+                homeMovesPageIndex++
             }
-            loadingMessage = "模拟请求网络..."
-            showloading = true
         }
     }
 
-
-    fun shoToast() {
-        uiEffect = UiEffect.ShowToast("弹出一条吐司")
+    /**
+     * 获取首页电视剧数据
+     */
+    private fun getHomeTv(isRefresh: Boolean = false){
+        if (isRefresh) {
+            homeTvPageIndex = 1
+        }
+        rxRequest {
+            onRequest = {
+                val homeTvList = Net.getHomeTvData(homeTvPageIndex).await()
+                val hasMore = homeTvPageIndex >= homeTvList.pageNum
+                _viewStates.setState {
+                    copy(
+                        loadStatus = if (isRefresh)
+                            LoadStatus.FirstLoad(hasMore)
+                        else
+                            LoadStatus.LoadMore(hasMore),
+                        homeTvData = homeTvList.list
+                    )
+                }
+                homeTvPageIndex++
+            }
+        }
     }
+
+    /**
+     * 获取首页动漫数据
+     */
+    private fun getHomeCartoon(isRefresh: Boolean = false){
+        if (isRefresh) {
+            homeCartoonIndex = 1
+        }
+        rxRequest {
+            onRequest = {
+                val homeCartoonList = Net.getHomeCartoonData(homeCartoonIndex).await()
+                val hasMore = homeCartoonIndex >= homeCartoonList.pageNum
+                _viewStates.setState {
+                    copy(
+                        loadStatus = if (isRefresh)
+                            LoadStatus.FirstLoad(hasMore)
+                        else
+                            LoadStatus.LoadMore(hasMore),
+                        homeCartoonData = homeCartoonList.list
+                    )
+                }
+                homeCartoonIndex++
+            }
+        }
+    }
+
+    override val _viewStates: MutableLiveData<HomeViewState> = MutableLiveData(HomeViewState())
 }
