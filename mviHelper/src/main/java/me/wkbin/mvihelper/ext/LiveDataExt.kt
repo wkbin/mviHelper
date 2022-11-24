@@ -1,10 +1,12 @@
 package me.wkbin.mvihelper.ext
 
+import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.distinctUntilChanged
 import androidx.lifecycle.map
+import kotlinx.coroutines.delay
 import me.wkbin.mvihelper.core.livedata.LiveEvents
 import kotlin.reflect.KProperty1
 

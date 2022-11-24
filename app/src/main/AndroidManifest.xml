@@ -17,7 +17,8 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
-            android:name=".VideoDetailActivity"
+            android:name=".app.ui.act.VideoDetailActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

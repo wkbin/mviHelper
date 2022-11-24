@@ -1,6 +1,7 @@
 package me.wkbin.movie.app.api
 
 
+import VideoDetailData
 import me.wkbin.movie.app.data.HomeData
 import rxhttp.wrapper.annotation.DefaultDomain
 import rxhttp.wrapper.coroutines.Await
@@ -37,7 +38,7 @@ object Net {
     /**
      * 首页电影
      */
-    fun getHomeMovesData(page:Int):Await<ApiPagerResponse<HomeData>>{
+    fun getHomeMovesData(page: Int): Await<ApiPagerResponse<HomeData>> {
         return RxHttp.get("video/vod/moves")
             .toPageList(page)
             .toAwaitResponse()
@@ -46,7 +47,7 @@ object Net {
     /**
      * 首页电视剧
      */
-    fun getHomeTvData(page:Int):Await<ApiPagerResponse<HomeData>>{
+    fun getHomeTvData(page: Int): Await<ApiPagerResponse<HomeData>> {
         return RxHttp.get("video/vod/tvs")
             .toPageList(page)
             .toAwaitResponse()
@@ -55,9 +56,24 @@ object Net {
     /**
      * 首页动漫
      */
-    fun getHomeCartoonData(page:Int):Await<ApiPagerResponse<HomeData>>{
+    fun getHomeCartoonData(page: Int): Await<ApiPagerResponse<HomeData>> {
         return RxHttp.get("video/vod/anims")
             .toPageList(page)
+            .toAwaitResponse()
+    }
+
+    /**
+     * 查看视频详情
+     */
+    fun getVideoDetailData(
+        videoId: String,
+        deviceId: String,
+        userId: String?
+    ): Await<VideoDetailData> {
+        return RxHttp.get("video/vod/detail")
+            .add("id", videoId)
+            .add("deviceId", deviceId)
+            .add("userId", userId, userId != null)
             .toAwaitResponse()
     }
 

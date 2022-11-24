@@ -43,10 +43,10 @@ abstract class BaseMVIActivity<STATE, EFFECT, EVENT, VM : BaseViewModel<STATE, E
         beforeCreate()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_base)
-        //初始化 status View
-        initStatusView(savedInstanceState)
         //注册事件监听
         registerUiChange()
+        //初始化 status View
+        initStatusView(savedInstanceState)
     }
 
     private fun registerUiChange() {
@@ -86,21 +86,18 @@ abstract class BaseMVIActivity<STATE, EFFECT, EVENT, VM : BaseViewModel<STATE, E
      * Init immersion bar.
      */
     protected open fun initImmersionBar() {
-        //设置共同沉浸式样式
-        if(mTitleBarView == null){
-            immersionBar {
-                // 解决状态栏和布局重叠问题
-                fitsSystemWindows(true)
-                statusBarDarkFont(isDarkFontForStatusBar())
-            }
+        ImmersionBar.with(this, false).apply { setImmersionBarBlock(this)  }.init()
+    }
+
+
+
+    open fun setImmersionBarBlock(immersionBar:ImmersionBar){
+        if (mTitleBarView == null){
+            immersionBar.fitsSystemWindows(true)
+            immersionBar.statusBarDarkFont(isDarkFontForStatusBar())
         }else{
-            baseRootView.addView(mTitleBarView, 0)
-            //是否隐藏标题栏
-            mTitleBarView!!.isVisible = showToolBar()
-            immersionBar {
-                statusBarDarkFont(isDarkFontForStatusBar())
-                titleBar(mTitleBarView)
-            }
+            immersionBar.statusBarDarkFont(isDarkFontForStatusBar())
+            immersionBar.titleBar(mTitleBarView)
         }
     }
 

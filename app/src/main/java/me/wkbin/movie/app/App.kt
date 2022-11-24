@@ -1,6 +1,8 @@
 package me.wkbin.movie.app
 
 import android.app.Application
+import com.shuyu.gsyvideoplayer.cache.CacheFactory
+import com.shuyu.gsyvideoplayer.player.PlayerFactory
 import dagger.hilt.android.HiltAndroidApp
 import me.wkbin.movie.BuildConfig
 import me.wkbin.movie.app.api.HttpLoggingInterceptor
@@ -10,6 +12,8 @@ import rxhttp.RxHttpPlugins
 import rxhttp.wrapper.converter.MoshiConverter
 import rxhttp.wrapper.param.Param
 import rxhttp.wrapper.ssl.HttpsUtils
+import tv.danmaku.ijk.media.exo2.Exo2PlayerManager
+import tv.danmaku.ijk.media.exo2.ExoPlayerCacheManager
 import javax.net.ssl.SSLSession
 
 
@@ -23,6 +27,12 @@ class App: Application() {
 
     //建议在Application中调用
     private fun init() {
+        // EXOPlayer内核
+        PlayerFactory.setPlayManager(Exo2PlayerManager::class.java)
+        // exo 缓存模式 ，支持m3u8
+        CacheFactory.setCacheManager(ExoPlayerCacheManager::class.java)
+        // 显示
+
         val sslParams = HttpsUtils.getSslSocketFactory()
         val client: OkHttpClient = OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor())

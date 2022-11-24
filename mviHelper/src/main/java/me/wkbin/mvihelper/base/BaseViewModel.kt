@@ -36,9 +36,9 @@ abstract class BaseViewModel<STATE , EFFECT, EVENT> :
 
     @CallSuper
     override fun process(viewEvent: EVENT) {
-        if (!viewStates().hasObservers()) {
-            throw NoObserverAttachedException("No observer attached. In case of AacMviCustomView \"startObserving()\" function needs to be called manually.")
-        }
+//        if (!viewStates().hasObservers()) {
+//            throw NoObserverAttachedException("No observer attached. In case of AacMviCustomView \"startObserving()\" function needs to be called manually.")
+//        }
         Timber.d(TAG, "processing viewEvent: $viewEvent")
     }
 
