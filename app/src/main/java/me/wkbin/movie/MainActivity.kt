@@ -11,18 +11,21 @@ import me.wkbin.mvihelper.core.DefaultEffect
 import me.wkbin.movie.app.ui.mvi.HomeViewEvent
 import me.wkbin.movie.app.ui.mvi.HomeViewState
 import me.wkbin.movie.app.ui.vm.HomeVM
+import me.wkbin.movie.app.ui.vm.MainVM
 import me.wkbin.movie.databinding.ActivityMainBinding
 import me.wkbin.mvihelper.base.BaseVBActivity
+import me.wkbin.mvihelper.core.DefaultState
+import me.wkbin.mvihelper.core.DefaultViewEvent
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity :
-    BaseVBActivity<HomeViewState, DefaultEffect, HomeViewEvent, HomeVM, ActivityMainBinding>(){
+    BaseVBActivity<DefaultState, DefaultEffect, DefaultViewEvent, MainVM, ActivityMainBinding>(){
 
     @Inject
     lateinit var vpAdapter:MainAdapter
 
-    override val mViewModel: HomeVM by viewModels()
+    override val mViewModel: MainVM by viewModels()
 
     override fun initView(savedInstanceState: Bundle?) {
         mViewBind.vpMain.apply {
@@ -54,8 +57,10 @@ class MainActivity :
         })
     }
 
+    override fun renderViewState(viewStates: LiveData<DefaultState>) {}
 
-    override fun renderViewState(viewStates: LiveData<HomeViewState>) {}
+
+
 
 
 }

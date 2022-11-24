@@ -115,11 +115,11 @@ class HomeFragment :
                 when(status){
                     is LoadStatus.FirstLoad -> {
                         recommendAdapter.submitList(data)
-                        recommendHelper.trailingLoadState = LoadState.NotLoading(!status.hasMore)
+                        recommendHelper.trailingLoadState = LoadState.NotLoading(status.hasNoMore)
                     }
                     is LoadStatus.LoadMore -> {
                         recommendAdapter.addAll(data!!.toMutableList())
-                        recommendHelper.trailingLoadState = LoadState.NotLoading(!status.hasMore)
+                        recommendHelper.trailingLoadState = LoadState.NotLoading(status.hasNoMore)
                     }
                 }
             }
@@ -131,11 +131,11 @@ class HomeFragment :
                 when(status){
                     is LoadStatus.FirstLoad -> {
                         homeMovieAdapter.submitList(data)
-                        homeMovieHelper.trailingLoadState = LoadState.NotLoading(!status.hasMore)
+                        homeMovieHelper.trailingLoadState = LoadState.NotLoading(status.hasNoMore)
                     }
                     is LoadStatus.LoadMore -> {
                         homeMovieAdapter.addAll(data!!.toMutableList())
-                        homeMovieHelper.trailingLoadState = LoadState.NotLoading(!status.hasMore)
+                        homeMovieHelper.trailingLoadState = LoadState.NotLoading(status.hasNoMore)
                     }
                 }
             }
@@ -147,11 +147,11 @@ class HomeFragment :
                 when(status){
                     is LoadStatus.FirstLoad -> {
                         tVDramaAdapter.submitList(data)
-                        tvDramaHelper.trailingLoadState = LoadState.NotLoading(!status.hasMore)
+                        tvDramaHelper.trailingLoadState = LoadState.NotLoading(status.hasNoMore)
                     }
                     is LoadStatus.LoadMore -> {
                         tVDramaAdapter.addAll(data!!.toMutableList())
-                        tvDramaHelper.trailingLoadState = LoadState.NotLoading(!status.hasMore)
+                        tvDramaHelper.trailingLoadState = LoadState.NotLoading(status.hasNoMore)
                     }
                 }
             }
@@ -163,11 +163,11 @@ class HomeFragment :
                 when(status){
                     is LoadStatus.FirstLoad -> {
                         cartoonAdapter.submitList(data)
-                        cartoonHelper.trailingLoadState = LoadState.NotLoading(!status.hasMore)
+                        cartoonHelper.trailingLoadState = LoadState.NotLoading(status.hasNoMore)
                     }
                     is LoadStatus.LoadMore -> {
                         cartoonAdapter.addAll(data!!.toMutableList())
-                        cartoonHelper.trailingLoadState = LoadState.NotLoading(!status.hasMore)
+                        cartoonHelper.trailingLoadState = LoadState.NotLoading(status.hasNoMore)
                     }
                 }
             }

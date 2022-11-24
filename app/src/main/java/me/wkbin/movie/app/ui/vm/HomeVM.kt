@@ -54,8 +54,8 @@ class HomeVM : BaseViewModel<HomeViewState, DefaultEffect, HomeViewEvent>() {
         rxRequest {
             onRequest = {
                 val recommendList = Net.getRecommendData(recommendPageIndex).await()
-                val hasMore = recommendPageIndex >= recommendList.pageNum
-                val status  = if (isRefresh) LoadStatus.FirstLoad(hasMore) else LoadStatus.LoadMore(hasMore)
+                val hasNoMore = recommendPageIndex >= recommendList.totalPage
+                val status  = if (isRefresh) LoadStatus.FirstLoad(hasNoMore) else LoadStatus.LoadMore(hasNoMore)
                 _viewStates.setState {
                     copy(
                         loadStatus = status,
@@ -77,13 +77,13 @@ class HomeVM : BaseViewModel<HomeViewState, DefaultEffect, HomeViewEvent>() {
         rxRequest {
             onRequest = {
                 val homeMovesList = Net.getHomeMovesData(homeMovesPageIndex).await()
-                val hasMore = homeMovesPageIndex >= homeMovesList.pageNum
+                val hasNoMore = homeMovesPageIndex >= homeMovesList.totalPage
                 _viewStates.setState {
                     copy(
                         loadStatus = if (isRefresh)
-                            LoadStatus.FirstLoad(hasMore)
+                            LoadStatus.FirstLoad(hasNoMore)
                         else
-                            LoadStatus.LoadMore(hasMore),
+                            LoadStatus.LoadMore(hasNoMore),
                         homeMovesData = homeMovesList.list
                     )
                 }
@@ -102,13 +102,13 @@ class HomeVM : BaseViewModel<HomeViewState, DefaultEffect, HomeViewEvent>() {
         rxRequest {
             onRequest = {
                 val homeTvList = Net.getHomeTvData(homeTvPageIndex).await()
-                val hasMore = homeTvPageIndex >= homeTvList.pageNum
+                val hasNoMore = homeTvPageIndex >= homeTvList.totalPage
                 _viewStates.setState {
                     copy(
                         loadStatus = if (isRefresh)
-                            LoadStatus.FirstLoad(hasMore)
+                            LoadStatus.FirstLoad(hasNoMore)
                         else
-                            LoadStatus.LoadMore(hasMore),
+                            LoadStatus.LoadMore(hasNoMore),
                         homeTvData = homeTvList.list
                     )
                 }
@@ -127,13 +127,13 @@ class HomeVM : BaseViewModel<HomeViewState, DefaultEffect, HomeViewEvent>() {
         rxRequest {
             onRequest = {
                 val homeCartoonList = Net.getHomeCartoonData(homeCartoonIndex).await()
-                val hasMore = homeCartoonIndex >= homeCartoonList.pageNum
+                val hasNoMore = homeCartoonIndex >= homeCartoonList.totalPage
                 _viewStates.setState {
                     copy(
                         loadStatus = if (isRefresh)
-                            LoadStatus.FirstLoad(hasMore)
+                            LoadStatus.FirstLoad(hasNoMore)
                         else
-                            LoadStatus.LoadMore(hasMore),
+                            LoadStatus.LoadMore(hasNoMore),
                         homeCartoonData = homeCartoonList.list
                     )
                 }

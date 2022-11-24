@@ -15,12 +15,12 @@ sealed class LoadStatus {
     /**
      * 第一次加载
      */
-    data class FirstLoad(val hasMore:Boolean) : LoadStatus()
+    data class FirstLoad(val hasNoMore:Boolean) : LoadStatus()
 
     /**
      * 加载更多
      */
-    data class LoadMore(val hasMore:Boolean) : LoadStatus()
+    data class LoadMore(val hasNoMore:Boolean) : LoadStatus()
 }
 
 sealed class HomeViewEvent {
