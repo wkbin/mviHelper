@@ -6,7 +6,7 @@ import me.wkbin.mvihelper.core.DefaultEffect
 import me.wkbin.mvihelper.core.DefaultState
 import me.wkbin.mvihelper.core.DefaultViewEvent
 
-class MainVM:BaseViewModel<DefaultState, DefaultEffect, DefaultViewEvent>() {
+class MainVM:BaseViewModel<DefaultState, DefaultViewEvent>() {
     override val _viewStates: MutableLiveData<DefaultState>
         get() = MutableLiveData()
 }

@@ -14,7 +14,7 @@ import me.wkbin.mvihelper.ext.dismissLoadingExt
 import me.wkbin.mvihelper.ext.showLoadingExt
 import me.wkbin.mvihelper.ext.toast
 
-abstract class BaseMVIFragment<STATE, EFFECT, EVENT, VM : BaseViewModel<STATE, EFFECT, EVENT>>:Fragment() {
+abstract class BaseMVIFragment<STATE, EVENT, VM : BaseViewModel<STATE, EVENT>>:Fragment() {
 
     abstract val mViewModel: VM
 
@@ -68,7 +68,6 @@ abstract class BaseMVIFragment<STATE, EFFECT, EVENT, VM : BaseViewModel<STATE, E
 
     private fun registerUiChange() {
         renderViewState(mViewModel.viewStates())
-        mViewModel.viewEffects().observe(viewLifecycleOwner, viewEffectObserver)
         mViewModel.uiEffects().observe(viewLifecycleOwner, uiEffectObserver)
     }
 
@@ -96,12 +95,6 @@ abstract class BaseMVIFragment<STATE, EFFECT, EVENT, VM : BaseViewModel<STATE, E
 
     abstract fun renderViewState(viewStates: LiveData<STATE>)
 
-
-    open fun renderViewEffect(viewEffect: EFFECT){}
-
-    private val viewEffectObserver = Observer<EFFECT> {
-        renderViewEffect(it)
-    }
 
     private val uiEffectObserver = Observer<UiEffect> { uiEffect ->
         when (uiEffect) {

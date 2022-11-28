@@ -23,7 +23,7 @@ import me.wkbin.mvihelper.ext.lazyIntentExtra
 import me.wkbin.mvihelper.ext.observeState
 
 class VideoDetailActivity :
-    BaseVBActivity<VideoDetailState, DefaultEffect, VideoDetailEvent, VideoDetailVM, ActivityVideoDetailBinding>() {
+    BaseVBActivity<VideoDetailState, VideoDetailEvent, VideoDetailVM, ActivityVideoDetailBinding>() {
 
     override val mViewModel: VideoDetailVM by viewModels()
 

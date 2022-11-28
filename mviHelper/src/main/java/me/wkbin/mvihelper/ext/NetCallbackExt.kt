@@ -12,7 +12,7 @@ import me.wkbin.mvihelper.core.UiEffect
  * @receiver BaseViewModel
  *
  */
-fun BaseViewModel<*, *, *>.rxRequest(requestDslClass: HttpRequestDsl.() -> Unit) {
+fun BaseViewModel<*, *>.rxRequest(requestDslClass: HttpRequestDsl.() -> Unit) {
     val httpRequestDsl = HttpRequestDsl()
     requestDslClass(httpRequestDsl)
     viewModelScope.launch {

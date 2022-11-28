@@ -10,15 +10,15 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.viewbinding.ViewBinding
 import com.dylanc.viewbinding.base.ViewBindingUtil
 
-abstract class BaseVBFragment<STATE, EFFECT, EVENT, VM : BaseViewModel<STATE, EFFECT, EVENT>, VB : ViewBinding>
-    : BaseMVIFragment<STATE, EFFECT, EVENT, VM>() {
+abstract class BaseVBFragment<STATE, EVENT, VM : BaseViewModel<STATE, EVENT>, VB : ViewBinding>
+    : BaseMVIFragment<STATE, EVENT, VM>() {
 
     // 使用了ViewBinding 就不需要layoutId
     override val layoutId: Int
         get() = 0
 
     private var _binding: VB? = null
-    val mViewBind: VB get() = _binding!!
+    protected val mViewBind: VB get() = _binding!!
     private val handle by lazy { Handler(Looper.getMainLooper()) }
 
     override fun initViewBind(inflater: LayoutInflater, container: ViewGroup?): View? {

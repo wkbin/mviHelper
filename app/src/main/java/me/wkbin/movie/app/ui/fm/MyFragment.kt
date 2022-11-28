@@ -11,7 +11,7 @@ import me.wkbin.movie.databinding.FragmentMyBinding
 import me.wkbin.mvihelper.base.BaseVBFragment
 
 
-class MyFragment : BaseVBFragment<DefaultEffect, DefaultViewEvent, DefaultState,MyVM,FragmentMyBinding>() {
+class MyFragment : BaseVBFragment<DefaultEffect, DefaultState, MyVM, FragmentMyBinding>() {
 
     companion object {
         fun newInstance() = MyFragment()

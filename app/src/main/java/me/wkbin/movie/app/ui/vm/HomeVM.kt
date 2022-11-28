@@ -13,7 +13,7 @@ import me.wkbin.mvihelper.ext.rxRequest
 import me.wkbin.mvihelper.ext.setState
 
 
-class HomeVM : BaseViewModel<HomeViewState, DefaultEffect, HomeViewEvent>() {
+class HomeVM : BaseViewModel<HomeViewState, HomeViewEvent>() {
 
     private val _mockBanner = listOf(
         "http://pic.netbian.com/uploads/allimg/221121/234549-1669045549622d.jpg",

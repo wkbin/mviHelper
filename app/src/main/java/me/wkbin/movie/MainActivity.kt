@@ -7,10 +7,6 @@ import androidx.lifecycle.LiveData
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import dagger.hilt.android.AndroidEntryPoint
 import me.wkbin.movie.app.ui.adapter.MainAdapter
-import me.wkbin.mvihelper.core.DefaultEffect
-import me.wkbin.movie.app.ui.mvi.HomeViewEvent
-import me.wkbin.movie.app.ui.mvi.HomeViewState
-import me.wkbin.movie.app.ui.vm.HomeVM
 import me.wkbin.movie.app.ui.vm.MainVM
 import me.wkbin.movie.databinding.ActivityMainBinding
 import me.wkbin.mvihelper.base.BaseVBActivity
@@ -20,7 +16,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity :
-    BaseVBActivity<DefaultState, DefaultEffect, DefaultViewEvent, MainVM, ActivityMainBinding>(){
+    BaseVBActivity<DefaultState, DefaultViewEvent, MainVM, ActivityMainBinding>(){
 
     @Inject
     lateinit var vpAdapter:MainAdapter

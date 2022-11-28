@@ -10,7 +10,7 @@ import me.wkbin.mvihelper.core.DefaultEffect
 import me.wkbin.mvihelper.ext.rxRequest
 import me.wkbin.mvihelper.ext.setState
 
-class VideoDetailVM : BaseViewModel<VideoDetailState, DefaultEffect, VideoDetailEvent>() {
+class VideoDetailVM : BaseViewModel<VideoDetailState, VideoDetailEvent>() {
     override val _viewStates: MutableLiveData<VideoDetailState> =
         MutableLiveData(VideoDetailState())
 

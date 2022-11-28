@@ -21,7 +21,7 @@ import me.wkbin.mvihelper.ext.toast
 /**
  * 只使用ViewModel继承它
  */
-abstract class BaseMVIActivity<STATE, EFFECT, EVENT, VM : BaseViewModel<STATE, EFFECT, EVENT>> :
+abstract class BaseMVIActivity<STATE, EVENT, VM : BaseViewModel<STATE, EVENT>> :
     AppCompatActivity() {
 
     abstract val mViewModel: VM
@@ -51,14 +51,9 @@ abstract class BaseMVIActivity<STATE, EFFECT, EVENT, VM : BaseViewModel<STATE, E
 
     private fun registerUiChange() {
         renderViewState(mViewModel.viewStates())
-        mViewModel.viewEffects().observe(this, viewEffectObserver)
         mViewModel.uiEffects().observe(this, uiEffectObserver)
     }
 
-
-    private val viewEffectObserver = Observer<EFFECT> {
-        renderViewEffect(it)
-    }
 
     private val uiEffectObserver = Observer<UiEffect> { uiEffect ->
         when (uiEffect) {
@@ -133,7 +128,4 @@ abstract class BaseMVIActivity<STATE, EFFECT, EVENT, VM : BaseViewModel<STATE, E
 
 
     abstract fun renderViewState(viewStates: LiveData<STATE>)
-
-
-    open fun renderViewEffect(viewEffect: EFFECT){}
 }

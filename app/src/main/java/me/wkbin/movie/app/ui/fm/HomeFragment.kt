@@ -33,7 +33,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment :
-    BaseVBFragment<HomeViewState, DefaultEffect, HomeViewEvent, HomeVM, FragmentHomeBinding>() {
+    BaseVBFragment<HomeViewState, HomeViewEvent, HomeVM, FragmentHomeBinding>() {
 
     companion object {
         fun newInstance() = HomeFragment()
